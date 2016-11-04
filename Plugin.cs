@@ -7,13 +7,13 @@ using TShockAPI;
 
 namespace SpawnMobXY
 {
-	[ApiVersion(1, 21)]
+	[ApiVersion(1, 25)]
 	public class Plugin  : TerrariaPlugin
 	{
 		public override string Name { get { return "SpawnMobXY"; } }
 		public override string Author { get { return "Patrikk"; } }
 		public override string Description { get { return "Extends spawnmob and spawnboss commands."; } }
-		public override Version Version { get { return new Version(1, 0); } }
+		public override Version Version { get { return new Version(1, 0, 1); } }
 
 		public static List<string> bosses = new List<string>() { "brain", "destroyer", "fishron", "eater", "eye", "golem", "king slime", "plantera", "prime", "queen bee", "skeletron", "twins", "wof" };
 
@@ -277,6 +277,15 @@ namespace SpawnMobXY
 						TSPlayer.All.SendSuccessMessage("{0} has spawned the Wall of Flesh.", args.Player.Name);
 					else
 						args.Player.SendSuccessMessage("Spawned the Wall of Flesh.", amount);
+					return;
+				case "moon":
+				case "moon lord":
+					npc.SetDefaults(398);
+					TSPlayer.Server.SpawnNPC(npc.type, npc.name, amount, TileX, TileY);
+					if (!args.Silent)
+						TSPlayer.All.SendSuccessMessage("{0} has spawned the Moon Lord {1} time(s).", args.Player.Name, amount);
+					else
+						args.Player.SendSuccessMessage("Spawned the Moon Lord {1} time(s).", args.Player.Name, amount);
 					return;
 				default:
 					args.Player.SendErrorMessage("Invalid boss type!");
